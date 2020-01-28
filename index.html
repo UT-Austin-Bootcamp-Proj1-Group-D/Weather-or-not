@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather-or-not</title>
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylez.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- info navbar -->
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-light bg-light" style="background-color: lightskyblue;">
+                <span class="navbar-brand mb-0 h1">Weather-or-Not!</span>
+            </nav>
+        </div>
+    </div>
+    <!-- end of nav bar -->
+
+    <div class=“container”>
+        <div class=“jumbotron w-25 h-50">
+            <img src="images/weather or not logo.png">
+        </div>
+    </div>
+
+    <!-- row of buttons -->
+    <div class="row">
+        <div class="col-md-8 buttons">
+            <input class="btn btn-primary m-3 weather-btn" id="sunny-btn" type="button" value="Sunshine">
+            <input class="btn btn-primary m-3 weather-btn" id="cloudy-btn" type="button" value="Clouds">
+            <input class="btn btn-primary m-3 weather-btn" id="snow-btn" type="button" value="Snow">
+            <input class="btn btn-primary m-3 weather-btn" id="rainy-btn" type="button" value="Rain">
+        </div>
+    </div>
+    <!-- end row of buttons -->
+
+
+    <!-- flight times table -->
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Flight #</th>
+                        <th scope="col">departure location</th>
+                        <th scope="col">departure time</th>
+                        <th scope="col">arrival location</th>
+                        <th scope="col">arrival time</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Austin, Tx</td>
+                        <td>April 20, 2020 @4:20 am</td>
+                        <td>San Diego, Cal</td>
+                        <td>April 20, 2020 @5:20 am</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Austin, Tx</td>
+                        <td>February 30, 2020 @5:15 pm</td>
+                        <td>Banff, Canada</td>
+                        <td>February 30, 2020 @9:40 pm</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Austin, Tx</td>
+                        <td>January 25, 2020 @2:30 pm</td>
+                        <td>London, England</td>
+                        <td>January 26, 2020 @12:30 pm</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>Austin, Tx</td>
+                        <td>March 18th, 2020 @6:00 am</td>
+                        <td>Maranello, Italy</td>
+                        <td>March 19th, 2020 @9:00 am</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>Austin, Tx</td>
+                        <td>February 14 2020, @8:30 pm</td>
+                        <td>Cape Town, South Africa</td>
+                        <td>February 16 2020, @12:30 pm</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class=“row”>
+        <div class=“col-lg-12">
+            <div class=“panel panel-primary” style=“background-color:#52808e; color: white”>
+                <div class=“panel-heading”>
+                    <h3 class=“panel-title text-center”><strong>Flights for that Weather</strong></h3>
+                </div>
+                <div class=“panel-body”>
+                    <table class=“table table-hover” id=“cheapest flight”>
+                        <thead>
+                            <tr>
+                                <th>Destination</th>
+                                <th>Cheapest Flight</th>
+                                <th>High</th>
+                                <th>Low</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- footer -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="footer">
+                <div class="card">
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>You'll miss 100% of the shots you don't take.</p>
+                            <footer class="blockquote-footer">Michael Scott <cite title="Source Title">-Wayne
+                                    Gretzy</cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+
+
+
+
+
+</body>
+
+</html>
