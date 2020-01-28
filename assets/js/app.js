@@ -9,13 +9,33 @@ function searchNOAA(weatherDescription) {
 // use the Skyscanner API to search for the cheapest flights based on the cities selected by the user
 // Returns: array of objects, cities and the cheapest flight found
 function searchFlights(citiesSelected) {
+    let origin = "AUS"
+    let dest = "LAX"
+    let endDate = "2020-01-29"
+    // search skyscanner api for cheapest flight on date
+    // return the cheapest flight 
+
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/SFO-sky/JFK-sky/2020-09-01?inboundpartialdate=2020-12-01",
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+            "x-rapidapi-key": "f655d74b8dmsh7124e9f74a7fa7ep1abd4ajsn3b73d28c941a"
+        }
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+    });
 
 }
 
 // Function displayLowestPrices
 // displays the lowest price flights to the page
 function displayLowestPrices() {
-
+    $("#cities").html("");
 }
 
 // Function: displayCitiesWeather
@@ -30,7 +50,7 @@ function displayCitiesWeather(id) {
     var headingTr = $("<tr>");
     headingTr.append($("<th>").text("Select"), $("<th>").text("City"), $("<th>").text("Day 1"), $("<th>").text("Day 2"), $("<th>").text("Day 3"));
     heading.append(headingTr);
-   
+
 
     let citiesWeather = searchNOAA(id);
 
@@ -48,7 +68,7 @@ function displayCitiesWeather(id) {
 };
 
 $(document).ready(function () {
-    $(".weather-btn").on("click", function (){
+    $(".weather-btn").on("click", function () {
         let id = $(this).attr("id");
         console.log(id);
         displayCitiesWeather(id);
