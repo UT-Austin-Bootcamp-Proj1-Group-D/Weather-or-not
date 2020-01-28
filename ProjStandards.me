@@ -17,3 +17,44 @@ show cities onclick
 
 take the properies from all the buttons 
 noaaSearch(object)
+
+After Fork
+git clone git@github.com:robotmatt/Weather-or-not.git
+cd ./Weather-or-not/
+git remote add upstream git@github.com:UT-Austin-Bootcamp-Proj1-Group-D/Weather-or-not.git
+git remote -v
+git pull upstream master
+
+enigma:UT Austin Class matt$ git clone git@github.com:robotmatt/Weather-or-not.git
+Cloning into 'Weather-or-not'...
+remote: Enumerating objects: 7, done.
+remote: Counting objects: 100% (7/7), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 7 (delta 0), reused 3 (delta 0), pack-reused 0
+Receiving objects: 100% (7/7), done.
+enigma:UT Austin Class matt$ cd ./Weather-or-not/
+enigma:Weather-or-not matt$ git remote add upstream git@github.com:UT-Austin-Bootcamp-Proj1-Group-D/Weather-or-not.git
+enigma:Weather-or-not matt$ git remote -v 
+origin	git@github.com:robotmatt/Weather-or-not.git (fetch)
+origin	git@github.com:robotmatt/Weather-or-not.git (push)
+upstream	git@github.com:UT-Austin-Bootcamp-Proj1-Group-D/Weather-or-not.git (fetch)
+upstream	git@github.com:UT-Austin-Bootcamp-Proj1-Group-D/Weather-or-not.git (push)
+enigma:Weather-or-not matt$ git pull upstream master
+From github.com:UT-Austin-Bootcamp-Proj1-Group-D/Weather-or-not
+ * branch            master     -> FETCH_HEAD
+ * [new branch]      master     -> upstream/master
+Already up to date.
+
+
+git checkout -b <name_of_branch>
+#...
+# make changes
+# ...
+$ git add <file you changed>
+$ git commit -v
+$ git push --set-upstream origin <name_of_branch>
+
+to update your Fork
+$ git checkout --track origin/master
+$ git pull upstream master
+$ git push

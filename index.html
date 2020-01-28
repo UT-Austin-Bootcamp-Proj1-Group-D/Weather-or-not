@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="stylez.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="./assets/js/app.js"></script>
 </head>
 
 <body>
@@ -35,69 +36,18 @@
     <!-- row of buttons -->
     <div class="row">
         <div class="col-md-8 buttons">
-            <input class="btn btn-primary m-3 weather-btn" id="sunny-btn" type="button" value="Sunshine">
-            <input class="btn btn-primary m-3 weather-btn" id="cloudy-btn" type="button" value="Clouds">
-            <input class="btn btn-primary m-3 weather-btn" id="snow-btn" type="button" value="Snow">
-            <input class="btn btn-primary m-3 weather-btn" id="rainy-btn" type="button" value="Rain">
+            <input class="btn btn-primary m-3 weather-btn" id="sunny" type="button" value="Sunshine">
+            <input class="btn btn-primary m-3 weather-btn" id="cloudy" type="button" value="Clouds">
+            <input class="btn btn-primary m-3 weather-btn" id="snow" type="button" value="Snow">
+            <input class="btn btn-primary m-3 weather-btn" id="rainy" type="button" value="Rain">
         </div>
     </div>
     <!-- end row of buttons -->
 
 
     <!-- flight times table -->
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Flight #</th>
-                        <th scope="col">departure location</th>
-                        <th scope="col">departure time</th>
-                        <th scope="col">arrival location</th>
-                        <th scope="col">arrival time</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Austin, Tx</td>
-                        <td>April 20, 2020 @4:20 am</td>
-                        <td>San Diego, Cal</td>
-                        <td>April 20, 2020 @5:20 am</td>
-
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Austin, Tx</td>
-                        <td>February 30, 2020 @5:15 pm</td>
-                        <td>Banff, Canada</td>
-                        <td>February 30, 2020 @9:40 pm</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Austin, Tx</td>
-                        <td>January 25, 2020 @2:30 pm</td>
-                        <td>London, England</td>
-                        <td>January 26, 2020 @12:30 pm</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Austin, Tx</td>
-                        <td>March 18th, 2020 @6:00 am</td>
-                        <td>Maranello, Italy</td>
-                        <td>March 19th, 2020 @9:00 am</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Austin, Tx</td>
-                        <td>February 14 2020, @8:30 pm</td>
-                        <td>Cape Town, South Africa</td>
-                        <td>February 16 2020, @12:30 pm</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="row" id="cities">
+        
     </div>
 
     <div class=“row”>
