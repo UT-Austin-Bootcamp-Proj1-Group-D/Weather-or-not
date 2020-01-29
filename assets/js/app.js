@@ -5,7 +5,7 @@ var matches = [];
 
 function searchNOAA(weatherDescription) {
 
-    var matches = [];
+    matches = [];
     var flag = false;
 
     cities.airportCode.forEach(function (element, index) {
