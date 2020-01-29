@@ -11,65 +11,169 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="stylez.css">
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="./assets/js/app.js"></script>
 </head>
 
 <body>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <!-- info navbar -->
-    <div class="row">
-        <div class="col-md-12">
-            <nav class="navbar navbar-light bg-light" style="background-color: lightskyblue;">
-                <span class="navbar-brand mb-0 h1">Weather-or-Not!</span>
-            </nav>
-        </div>
-    </div>
-    <!-- end of nav bar -->
+    <!-- navbar -->
+    <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark p-4">
+                <h4 class="text-white">Weather or Not</h4>
+                <span class="text-muted">The Final Destination for your getaway needs. Want to go somewhere sunny,
+                    Snowy, Rainy
+                    or Cloudy on a moments notice? We've got you covered!</span>
+            </div>
 
-    <div class=“container”>
-        <div class=“jumbotron w-25 h-50">
-            <img src="images/weather or not logo.png">
         </div>
+        <nav class="navbar navbar-dark bg-primary">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
     </div>
+    <!-- end of clear navbar -->
+
+    <!-- background photo -->
+    <div class="card bg-dark text-white h-20">
+        <img class="card-img" src="./images/787Plane.jpg" alt="Card image">
+        <!-- <div class="card-img-overlay">
+            <h5 class="card-title">Weather or Not</h5>
+            <p class="card-text"></p>
+        </div> -->
+    </div>
+
 
     <!-- row of buttons -->
     <div class="row">
-        <div class="col-md-8 buttons">
-            <input class="btn btn-primary m-3 weather-btn" id="Sunny" type="button" value="Sunshine">
-            <input class="btn btn-primary m-3 weather-btn" id="Cloudy" type="button" value="Clouds">
-            <input class="btn btn-primary m-3 weather-btn" id="Snow" type="button" value="Snow">
-            <input class="btn btn-primary m-3 weather-btn" id="Rain" type="button" value="Rain">
+        <div class="col-md-12">
+            <div class="card-deck m-4">
+                <div class="card">
+                    <img class="card-img-top" src="./images/sandiego.jpeg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Search For Sunny Weather</h5>
+                        <p class="card-text">Enjoy a fantastic getaway with lots of sunshine!</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <a href="#" class="btn btn-primary weather-btn" id="Sunny">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="./images/rainy_vacation.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Search for Rainy Weather</h5>
+                        <p class="card-text">
+                            Destinations with Rain are only a few clicks away!</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <a href="#" class="btn btn-primary weather-btn" id="Rainy">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="./images/tahoeSnow.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Search for Snowy Weather</h5>
+                        <p class="card-text">Shred the gnar and spend an evening in snow capped mountains!</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <a href="#" class="btn btn-primary weather-btn" id="Snow">Go somewhere</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="./images/nycCloudy.jpeg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Search for Cloudy Weather</h5>
+                        <p class="card-text">Bored with Sunshine?? Checkout these top Cloudy Vacation getaways!</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <a href="#" class="btn btn-primary weather-btn" id="Cloudy">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- <div class="col-md-8 buttons">
+            <input class="btn btn-primary m-3 weather-btn" id="sunny" type="button" value="Sunshine">
+            <input class="btn btn-primary m-3 weather-btn" id="cloudy" type="button" value="Clouds">
+            <input class="btn btn-primary m-3 weather-btn" id="snow" type="button" value="Snow">
+            <input class="btn btn-primary m-3 weather-btn" id="rainy" type="button" value="Rain">
+        </div> -->
+
     </div>
     <!-- end row of buttons -->
 
 
     <!-- flight times table -->
-    <div class="row" id="cities">
+    <div class="row flights" id="cities">
 
     </div>
 
     <div class=“row”>
-        <div class=“col-lg-12">
-            <div class=“panel panel-primary” style=“background-color:#52808e; color: white”>
+        <div class=“col-md-10 m-4">
+            <div class=“panel panel-primary">
                 <div class=“panel-heading”>
                     <h3 class=“panel-title text-center”><strong>Flights for that Weather</strong></h3>
                 </div>
-                <div class=“panel-body”>
-                    <table class=“table table-hover” id=“cheapest flight”>
-                        <thead>
-                            <tr>
-                                <th>Destination</th>
-                                <th>Cheapest Flight</th>
-                                <th>High</th>
-                                <th>Low</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -91,6 +195,7 @@
             </div>
         </div>
     </div>
+    <!-- end of footer -->
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
