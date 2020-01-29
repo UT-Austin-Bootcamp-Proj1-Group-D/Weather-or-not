@@ -1,7 +1,50 @@
+var matches = [];
 // Function: search NOAA
 // utilizes the NOAA API to search through the list of cities and compares their upcoming weather to what the user selected
 // Returns: array of cities that matches the weather description
 function searchNOAA(weatherDescription) {
+    var matches = [];
+    var flag = false;
+
+    cities.airportCode.forEach(function (element, index) {
+
+        var queryURL = "https://api.weather.gov/gridpoints/" + cities.cwa[index] + "/" + cities.gridX[index] + "," + cities.gridY[index] + "/forecast";
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            //var results = response
+            console.log(response);
+            var forecast = response.properties.periods;
+
+            
+
+            forecast.forEach(function (element) {
+                if (element.shortForecast.includes(weatherDescription)) {
+                    console.log(element.shortForecast);
+                    if (matches.indexOf(index) === -1) {
+                        matches.push(index);
+                        //console.log(matches);
+
+                        var tbody = $("<tbody>");
+                        var tr = $("<tr>");
+                        tr.append($("<td>").html($("<input>").attr("type", "checkbox")));
+                        tr.append($("<td>").text(cities.cityName[index]));
+                        
+                        tr.append($("<td>"));
+                        tr.append($("<td>"));
+                        tr.append($("<td>"));
+                        tbody.append(tr);
+                        $("#weather-table").append(tbody);
+                    }
+                }
+            });
+        });
+
+
+
+    });
+
 
 }
 
@@ -45,22 +88,24 @@ function displayCitiesWeather(id) {
     console.log(id);
 
     var tableDiv = $("<div>").addClass("col-md-12");
-    var table = $("<table>").addClass("table");
+    var table = $("<table>").addClass("table").attr("id", "weather-table");
     var heading = $("<thead>").addClass("thead-dark");
     var headingTr = $("<tr>");
     headingTr.append($("<th>").text("Select"), $("<th>").text("City"), $("<th>").text("Day 1"), $("<th>").text("Day 2"), $("<th>").text("Day 3"));
     heading.append(headingTr);
 
 
-    let citiesWeather = searchNOAA(id);
-
+    searchNOAA(id);
+    console.log(matches);
     // TODO: Create foreach looping through each citiesWeather and add to table
+    // matches.forEach(function (element, index) {
+    //     var tbody = $("<tbody>");
+    //     var tr = $("<tr>");
+    //     tr.append($("<td>").text(cities.cityName[element]));
+    //     tbody.append(tr);
+    //     table.append(tbody);
+    // });
 
-    //var tbody = $("<tbody>");
-    //var tr = $("<tr>");
-    //tr.append($("<td>").text("blah"));
-    // tbody.append(tr);
-    // table.append(tbody);
 
     table.append(heading);
     tableDiv.append(table);
