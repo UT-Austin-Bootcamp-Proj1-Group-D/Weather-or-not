@@ -26,6 +26,7 @@
                     Snowy, Rainy
                     or Cloudy on a moments notice? We've got you covered!</span>
             </div>
+
         </div>
         <nav class="navbar navbar-dark bg-primary">
             <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -51,41 +52,41 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card-deck m-4">
-                <div class="card" id="Sunny">
+                <div class="card">
                     <img class="card-img-top" src="./images/sandiego.jpeg" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">Search For Sunny Weather</h5>
                         <p class="card-text">Enjoy a fantastic getaway with lots of sunshine!</p>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="#" class="btn btn-primary weather-btn" id="Sunny">Go somewhere</a>
                     </div>
                 </div>
-                <div class="card" id="Rainy">
+                <div class="card">
                     <img class="card-img-top" src="./images/rainy_vacation.jpg" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">Search for Rainy Weather</h5>
                         <p class="card-text">
                             Destinations with Rain are only a few clicks away!</p>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="#" class="btn btn-primary weather-btn" id="Rainy">Go somewhere</a>
                     </div>
                 </div>
-                <div class="card" id="Snow">
+                <div class="card">
                     <img class="card-img-top" src="./images/tahoeSnow.jpg" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">Search for Snowy Weather</h5>
                         <p class="card-text">Shred the gnar and spend an evening in snow capped mountains!</p>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="#" class="btn btn-primary weather-btn" id="Snow">Go somewhere</a>
                     </div>
                 </div>
-                <div class="card" id="Cloudy">
+                <div class="card">
                     <img class="card-img-top" src="./images/nycCloudy.jpeg" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">Search for Cloudy Weather</h5>
                         <p class="card-text">Bored with Sunshine?? Checkout these top Cloudy Vacation getaways!</p>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="#" class="btn btn-primary weather-btn" id="Cloudy">Go somewhere</a>
                     </div>
                 </div>
             </div>
@@ -96,6 +97,7 @@
             <input class="btn btn-primary m-3 weather-btn" id="snow" type="button" value="Snow">
             <input class="btn btn-primary m-3 weather-btn" id="rainy" type="button" value="Rain">
         </div> -->
+
     </div>
     <!-- end row of buttons -->
 
@@ -195,21 +197,23 @@
     </div>
     <!-- end of footer -->
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+
+    <script src="./assets/js/cities.js"></script>
+    <script src="./assets/js/app.js"></script>
 
 
 
 
-
-
+        <script src="./assets/js/app.js"></script>
 </body>
 
 </html>
