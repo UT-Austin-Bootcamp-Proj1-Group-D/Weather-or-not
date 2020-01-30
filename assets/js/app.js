@@ -137,7 +137,7 @@ $(document).ready(function () {
         displayCitiesWeather(id);
     });
 
-    $("#search-flights").off("click");
+    $("#search-flights").off("click");  // This is a hack I don't know why this works
     $("#search-flights").on("click", function (event) {
         event.preventDefault();
         let citiesSelected = [];
@@ -147,10 +147,7 @@ $(document).ready(function () {
             let dest = cities.airportCode[id];
             let date = "2020-02-10"
             searchFlights(origin, dest, date);
-        });
-        
-            console.log("Blah");
-           
+        });           
     });
 });
 
