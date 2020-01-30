@@ -75,13 +75,13 @@ function searchFlights(origin, dest, date) {
 
     // search skyscanner api for cheapest flight on date
     // return the cheapest flight 
-let url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + origin + "-sky/" + dest + "-sky/" + date + "?inboundpartialdate=2020-12-01";
-console.log(url);
+    let url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + origin + "-sky/" + dest + "-sky/" + date + "?inboundpartialdate=2020-12-01";
+    console.log(url);
     var settings = {
         "async": true,
         "crossDomain": true,
         "url": url,
-         "method": "GET",
+        "method": "GET",
         "headers": {
             "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
             "x-rapidapi-key": "f655d74b8dmsh7124e9f74a7fa7ep1abd4ajsn3b73d28c941a"
@@ -137,6 +137,8 @@ $(document).ready(function () {
         displayCitiesWeather(id);
     });
 
+
+
     $("#search-flights").off("click");  // This is a hack I don't know why this works
     $("#search-flights").on("click", function (event) {
         event.preventDefault();
@@ -147,7 +149,7 @@ $(document).ready(function () {
             let dest = cities.airportCode[id];
             let date = "2020-02-10"
             searchFlights(origin, dest, date);
-        });           
+        });
     });
 });
 
