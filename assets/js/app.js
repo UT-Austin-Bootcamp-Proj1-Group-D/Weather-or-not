@@ -26,39 +26,39 @@ function searchNOAA(weatherDescription) {
                     if (matches.indexOf(index) === -1) {
                         matches.push(index);
                         //console.log(matches);
-                        flag=true;
+                        flag = true;
 
                     }
                 }
             });
-            if(flag){
+            if (flag) {
                 let startIndex = 0;
-                var today = new Date(); 
-                
-                if(today.getHours() >= 18){
+                var today = new Date();
+
+                if (today.getHours() >= 18) {
                     startIndex++;
                 }
                 var tbody = $("<tbody>");
                 var tr = $("<tr>");
-                
+
                 tr.append($("<td>").html($("<input>")
-                .attr("type", "checkbox")
-                .attr("data-index", index)
-                .addClass("city-select")));
+                    .attr("type", "checkbox")
+                    .attr("data-index", index)
+                    .addClass("city-select")));
 
                 tr.append($("<td>").text(cities.cityName[index]));
-    
+
                 tr.append($("<td>").text(forecast[startIndex].shortForecast + " " + forecast[startIndex].temperature + "°F"));
-                tr.append($("<td>").text(forecast[startIndex+2].shortForecast + " " + forecast[startIndex+2].temperature + "°F"));
-                tr.append($("<td>").text(forecast[startIndex+4].shortForecast + " " + forecast[startIndex+4].temperature + "°F"));
-                tr.append($("<td>").text(forecast[startIndex+6].shortForecast + " " + forecast[startIndex+6].temperature + "°F"));
-                tr.append($("<td>").text(forecast[startIndex+8].shortForecast + " " + forecast[startIndex+8].temperature + "°F"));
-                tr.append($("<td>").text(forecast[startIndex+10].shortForecast + " " + forecast[startIndex+10].temperature + "°F"));
-                tr.append($("<td>").text(forecast[startIndex+12].shortForecast + " " + forecast[startIndex+12].temperature + "°F"));
+                tr.append($("<td>").text(forecast[startIndex + 2].shortForecast + " " + forecast[startIndex + 2].temperature + "°F"));
+                tr.append($("<td>").text(forecast[startIndex + 4].shortForecast + " " + forecast[startIndex + 4].temperature + "°F"));
+                tr.append($("<td>").text(forecast[startIndex + 6].shortForecast + " " + forecast[startIndex + 6].temperature + "°F"));
+                tr.append($("<td>").text(forecast[startIndex + 8].shortForecast + " " + forecast[startIndex + 8].temperature + "°F"));
+                tr.append($("<td>").text(forecast[startIndex + 10].shortForecast + " " + forecast[startIndex + 10].temperature + "°F"));
+                tr.append($("<td>").text(forecast[startIndex + 12].shortForecast + " " + forecast[startIndex + 12].temperature + "°F"));
                 tbody.append(tr);
                 $("#weather-table").append(tbody);
             }
-            
+
         });
 
 
@@ -71,18 +71,17 @@ function searchNOAA(weatherDescription) {
 // Function: searchFlights
 // use the Skyscanner API to search for the cheapest flights based on the cities selected by the user
 // Returns: array of objects, cities and the cheapest flight found
-function searchFlights(citiesSelected) {
-    let origin = "AUS"
-    let dest = "LAX"
-    let endDate = "2020-01-29"
+function searchFlights(origin, dest, date) {
+
     // search skyscanner api for cheapest flight on date
     // return the cheapest flight 
-
+let url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + origin + "-sky/" + dest + "-sky/" + date + "?inboundpartialdate=2020-12-01";
+console.log(url);
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/SFO-sky/JFK-sky/2020-09-01?inboundpartialdate=2020-12-01",
-        "method": "GET",
+        "url": url,
+         "method": "GET",
         "headers": {
             "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
             "x-rapidapi-key": "f655d74b8dmsh7124e9f74a7fa7ep1abd4ajsn3b73d28c941a"
@@ -127,6 +126,7 @@ function displayCitiesWeather(id) {
 
     table.append(heading);
     tableDiv.append(table);
+    //tableDiv.append($("<button>").attr("id", "search-btn").text("Search Flights"));
     $("#cities").append(tableDiv);
 };
 
@@ -137,9 +137,22 @@ $(document).ready(function () {
         displayCitiesWeather(id);
     });
 
-
+    $("#search-flights").off("click");
+    $("#search-flights").on("click", function (event) {
+        event.preventDefault();
+        let citiesSelected = [];
+        $("input.city-select:checked").each(function () {
+            let id = $(this).attr("data-index");
+            let origin = "AUS"
+            let dest = cities.airportCode[id];
+            let date = "2020-02-10"
+            searchFlights(origin, dest, date);
+        });
+        
+            console.log("Blah");
+           
+    });
 });
-
 
 
 // Cities onclick event
