@@ -5,11 +5,7 @@
     padding-top:5%;
     /* padding-left: 10%; */
   }
-  
-  .jumbotron.jumbotron-fluid.b {
-    margin: auto;
-    width: 40%;
-  }
+
   
   body {
     background-color: white;
@@ -31,4 +27,22 @@
   .row.flights {
     margin: auto;
   }
+
+  #responsiveForm{
+    background-image: url("./images/boeing737.jpg");
+    background-size: 100% 100%;
   
+    /* min-height: 650px; */
+    /* min-width:100%; */
+    padding-left: 25%;
+    padding-right: 25%;
+    padding-top: 45%;
+  }
+
+  .form-control {
+    margin-bottom: 15px;
+  }
+
+  .col-md-12.b {
+    padding: 0px;
+  }
