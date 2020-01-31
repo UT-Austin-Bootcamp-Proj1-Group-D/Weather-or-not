@@ -117,11 +117,14 @@ function searchFlights(origin, dest, date, city) {
             var tr2 = $("<tr>");
             tr2.append($("<td>").text(""));
             tr2.append($("<td>").text(city));
-            tr2.append($("<td>").text(airportDes));
-            tr2.append($("<td>").text(quote));
+            tr2.append($("<td>").text(airportDes + " ("+dest+")"));
+            tr2.append($("<td>").text("$"+quote));
             tr2.append($("<td>").text(departdateFix));
             tr2.append($("<td>").text(directflight));
             tr2.append($("<td>").text(carrierpick));
+            tr2.append($("<td>").html($("<a>").attr("href", "https://www.skyscanner.com/transport/flights/"+origin+"/"+dest+"/"+date).text("Book Now").attr("target", "_blank"))
+                
+            )
             tbody2.append(tr2);
             $("#flight-table").append(tbody2);
         }
@@ -165,7 +168,8 @@ function displayCitiesWeather(id) {
     $("#cities").append(tableDiv);
 };
 
-$(".weather-btn").on("click", function () {
+$(".weather-btn").on("click", function (e) {
+    e.preventDefault();
     let id = $(this).attr("id");
     //console.log(id);
     displayCitiesWeather(id);
@@ -183,10 +187,11 @@ $("#search-flights").on("click", function (event) {
     headingTr2.append($("<th>"),
         $("<th>").text("Destination"),
         $("<th>").text("Destination Airport"),
-        $("<th>").text(" Price ($)"),
-        $("<th>").text("Depature Date (YYYY/MM/DD)"), //change this to user input
+        $("<th>").text("Price"),
+        $("<th>").text("Depature Date (YYYY-MM-DD)"), //change this to user input
         $("<th>").text("Direct Flight?"),
         $("<th>").text("Airline"),
+        $("<th>").text("")
     );
 
     heading2.append(headingTr2);
