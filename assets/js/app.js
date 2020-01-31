@@ -15,14 +15,14 @@ function searchNOAA(weatherDescription) {
             method: "GET"
         }).then(function (response) {
             var flag = false
-            console.log(response);
+            
             var forecast = response.properties.periods;
 
 
 
             forecast.forEach(function (element) {
                 if (element.shortForecast.includes(weatherDescription)) {
-                    console.log(element.shortForecast);
+                    
                     if (matches.indexOf(index) === -1) {
                         matches.push(index);
                         //console.log(matches);
@@ -75,13 +75,13 @@ function searchFlights(origin, dest, date) {
 
     // search skyscanner api for cheapest flight on date
     // return the cheapest flight 
-let url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + origin + "-sky/" + dest + "-sky/" + date + "?inboundpartialdate=2020-12-01";
-console.log(url);
+    let url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + origin + "-sky/" + dest + "-sky/" + date + "?";
+    
     var settings = {
         "async": true,
         "crossDomain": true,
         "url": url,
-         "method": "GET",
+        "method": "GET",
         "headers": {
             "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
             "x-rapidapi-key": "f655d74b8dmsh7124e9f74a7fa7ep1abd4ajsn3b73d28c941a"
@@ -90,6 +90,56 @@ console.log(url);
 
     $.ajax(settings).done(function (response) {
         console.log(response);
+        for (var i = 0; i < response.Quotes.length; i++) {      //Get price and departure date and time
+            var quote = response.Quotes[i].MinPrice
+            var departdate = response.Quotes[i].OutboundLeg.DepartureDate
+            var departdateFix = departdate.slice(0, 10)
+            var carrierIdGet = response.Quotes[i].OutboundLeg.CarrierIds[0]
+            var directflight = response.Quotes[i].Direct
+            console.log(carrierIdGet)
+        }
+        for (var i = 0; i < response.Places.length; i++) { //find the destination airport
+            var airportDes = response.Places[1].Name
+            
+        }
+        for (var i = 0; i < response.Carriers.length; i++) { //find which airlines are returned
+            if (carrierIdGet === response.Carriers[i].CarrierId){
+            var carrierpick = response.Carriers[i].Name
+            console.log(carrierpick)}
+        }
+        
+       
+        $("#flights").html("");
+
+        var tableDiv2 = $("<div>").addClass("col-md-8");
+        var table2 = $("<table>").addClass("table").attr("id", "flight-table");
+        var heading2 = $("<thead>").addClass("thead-dark");
+        var headingTr2 = $("<tr>");
+        headingTr2.append($("<th>"),
+            $("<th>").text("Destination"),
+            $("<th>").text("Destination Airport"),
+            $("<th>").text(" Price ($)"),
+            $("<th>").text("Depature Date (YYYY/MM/DD)"), //change this to user input
+            $("<th>").text("Direct Flight?"),
+            $("<th>").text("Airline"),
+        );
+        heading2.append(headingTr2);
+        table2.append(heading2);
+        tableDiv2.append(table2);
+        $("#flights").append(tableDiv2);
+
+        var tbody2 = $("<tbody>");
+        var tr2 = $("<tr>");
+        tr2.append($("<td>").text(""));
+        tr2.append($("<td>").text("Destination"));
+        tr2.append($("<td>").text(airportDes));
+        tr2.append($("<td>").text(quote));
+        tr2.append($("<td>").text(departdateFix));
+        tr2.append($("<td>").text(directflight));
+        tr2.append($("<td>").text(carrierpick));
+        tbody2.append(tr2);
+        $("#flight-table").append(tbody2);
+
     });
 
 }
@@ -133,7 +183,7 @@ function displayCitiesWeather(id) {
 $(document).ready(function () {
     $(".weather-btn").on("click", function () {
         let id = $(this).attr("id");
-        //console.log(id);
+        console.log(id);
         displayCitiesWeather(id);
     });
 
@@ -147,7 +197,7 @@ $(document).ready(function () {
             let dest = cities.airportCode[id];
             let date = "2020-02-10"
             searchFlights(origin, dest, date);
-        });           
+        });
     });
 });
 
