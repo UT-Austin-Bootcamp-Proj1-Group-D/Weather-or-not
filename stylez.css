@@ -1,4 +1,8 @@
 /* our CSS */
+
+html {
+  overflow-x: hidden;
+}
 .col-md-4.b {
     width: 100%;
     margin: auto;
@@ -29,14 +33,14 @@
   }
 
   #responsiveForm{
-    background-image: url("./images/boeing737.jpg");
+    background-image: url("./images/wideSky2.jpg");
     background-size: 100% 100%;
-  
     /* min-height: 650px; */
     /* min-width:100%; */
-    padding-left: 25%;
-    padding-right: 25%;
-    padding-top: 45%;
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-top: 15%;
+    padding-bottom: 15%;
   }
 
   .form-control {
