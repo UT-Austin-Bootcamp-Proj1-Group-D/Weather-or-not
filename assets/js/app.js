@@ -15,14 +15,14 @@ function searchNOAA(weatherDescription) {
             method: "GET"
         }).then(function (response) {
             var flag = false
-            
+
             var forecast = response.properties.periods;
 
 
 
             forecast.forEach(function (element) {
                 if (element.shortForecast.includes(weatherDescription)) {
-                    
+
                     if (matches.indexOf(index) === -1) {
                         matches.push(index);
                         //console.log(matches);
@@ -76,7 +76,7 @@ function searchFlights(origin, dest, date) {
     // search skyscanner api for cheapest flight on date
     // return the cheapest flight 
     let url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + origin + "-sky/" + dest + "-sky/" + date + "?";
-    
+
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -100,15 +100,16 @@ function searchFlights(origin, dest, date) {
         }
         for (var i = 0; i < response.Places.length; i++) { //find the destination airport
             var airportDes = response.Places[1].Name
-            
+
         }
         for (var i = 0; i < response.Carriers.length; i++) { //find which airlines are returned
-            if (carrierIdGet === response.Carriers[i].CarrierId){
-            var carrierpick = response.Carriers[i].Name
-            console.log(carrierpick)}
+            if (carrierIdGet === response.Carriers[i].CarrierId) {
+                var carrierpick = response.Carriers[i].Name
+                console.log(carrierpick)
+            }
         }
-        
-       
+
+
         $("#flights").html("");
 
         var tableDiv2 = $("<div>").addClass("col-md-8");
@@ -203,3 +204,13 @@ $("#search-flights").on("click", function (event) {
 $(document).ready(function () {
 
 });
+
+AirportInput("autocomplete-airport-1");
+
+// Example options for Formatting
+var options = {
+    formatting: `<div class="$(unique-result)"
+                     single-result" 
+                     data-index="$(i)"> 
+                   $(IATA) </div>`
+};
