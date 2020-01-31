@@ -72,7 +72,23 @@ function searchNOAA(weatherDescription) {
 // use the Skyscanner API to search for the cheapest flights based on the cities selected by the user
 // Returns: array of objects, cities and the cheapest flight found
 function searchFlights(origin, dest, date) {
-
+    var tableDiv2 = $("<div>").addClass("col-md-8");
+    var table2 = $("<table>").addClass("table").attr("id", "flight-table");
+    var heading2 = $("<thead>").addClass("thead-dark");
+    var headingTr2 = $("<tr>");
+    headingTr2.append($("<th>"),
+        $("<th>").text("Destination"),
+        $("<th>").text("Destination Airport"),
+        $("<th>").text(" Price ($)"),
+        $("<th>").text("Depature Date (YYYY/MM/DD)"), //change this to user input
+        $("<th>").text("Direct Flight?"),
+        $("<th>").text("Airline"),
+    );
+    
+    heading2.append(headingTr2);
+    table2.append(heading2);
+    tableDiv2.append(table2);
+    $("#flights").append(tableDiv2);
     // search skyscanner api for cheapest flight on date
     // return the cheapest flight 
     let url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + origin + "-sky/" + dest + "-sky/" + date + "?";
@@ -90,12 +106,16 @@ function searchFlights(origin, dest, date) {
 
     $.ajax(settings).done(function (response) {
         console.log(response);
-        for (var i = 0; i < response.Quotes.length; i++) {      //Get price and departure date and time
-            var quote = response.Quotes[i].MinPrice
-            var departdate = response.Quotes[i].OutboundLeg.DepartureDate
+        var quotes = response.Quotes
+        var places = response.Places
+        let carrier= response.Carriers
+
+        for (var i = 0; i < quotes.length; i++) {      //Get price and departure date and time
+            var quote = quotes[i].MinPrice
+            var departdate = quotes[i].OutboundLeg.DepartureDate
             var departdateFix = departdate.slice(0, 10)
-            var carrierIdGet = response.Quotes[i].OutboundLeg.CarrierIds[0]
-            var directflight = response.Quotes[i].Direct
+            var carrierIdGet = quotes[i].OutboundLeg.CarrierIds[0]
+            var directflight = quotes[i].Direct
             console.log(carrierIdGet)
         }
         for (var i = 0; i < response.Places.length; i++) { //find the destination airport
@@ -103,30 +123,14 @@ function searchFlights(origin, dest, date) {
             
         }
         for (var i = 0; i < response.Carriers.length; i++) { //find which airlines are returned
-            if (carrierIdGet === response.Carriers[i].CarrierId){
+            if (carrierIdGet === response.Carriers[i].CarrierId){  //getting the correct carrier
             var carrierpick = response.Carriers[i].Name
             console.log(carrierpick)}
         }
         
        
-        $("#flights").html("");
-
-        var tableDiv2 = $("<div>").addClass("col-md-8");
-        var table2 = $("<table>").addClass("table").attr("id", "flight-table");
-        var heading2 = $("<thead>").addClass("thead-dark");
-        var headingTr2 = $("<tr>");
-        headingTr2.append($("<th>"),
-            $("<th>").text("Destination"),
-            $("<th>").text("Destination Airport"),
-            $("<th>").text(" Price ($)"),
-            $("<th>").text("Depature Date (YYYY/MM/DD)"), //change this to user input
-            $("<th>").text("Direct Flight?"),
-            $("<th>").text("Airline"),
-        );
-        heading2.append(headingTr2);
-        table2.append(heading2);
-        tableDiv2.append(table2);
-        $("#flights").append(tableDiv2);
+        
+        
 
         var tbody2 = $("<tbody>");
         var tr2 = $("<tr>");
