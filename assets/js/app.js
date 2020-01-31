@@ -130,34 +130,26 @@ function displayCitiesWeather(id) {
     $("#cities").append(tableDiv);
 };
 
-$(document).ready(function () {
-    $(".weather-btn").on("click", function () {
-        let id = $(this).attr("id");
-        //console.log(id);
-        displayCitiesWeather(id);
-    });
-
-
-
-    $("#search-flights").off("click");  // This is a hack I don't know why this works
-    $("#search-flights").on("click", function (event) {
-        event.preventDefault();
-        let citiesSelected = [];
-        $("input.city-select:checked").each(function () {
-            let id = $(this).attr("data-index");
-            let origin = "AUS"
-            let dest = cities.airportCode[id];
-            let date = "2020-02-10"
-            searchFlights(origin, dest, date);
-        });
-    });
+$(".weather-btn").on("click", function () {
+    let id = $(this).attr("id");
+    //console.log(id);
+    displayCitiesWeather(id);
 });
 
 
-// Cities onclick event
+$("#search-flights").on("click", function (event) {
+    event.preventDefault();
+    console.log("blah");
+    let citiesSelected = [];
+    $("input.city-select:checked").each(function () {
+        let id = $(this).attr("data-index");
+        let origin = "AUS"
+        let dest = cities.airportCode[id];
+        let date = "2020-02-10"
+        searchFlights(origin, dest, date);
+    });
+});
 
-// Search flights onclick event
+$(document).ready(function () {
 
-// Redo flights onclick event
-
-// Edit cities onclick event
+});
