@@ -96,19 +96,19 @@ function searchFlights(origin, dest, date, city) {
         var places = response.Places
         let carrier = response.Carriers
 
-        for (var i = 0; i < quotes.length; i++) {      //Get price and departure date and time
+        for (var i = 0; i < quotes.length; i++) { //Get price and departure date and time
             var quote = quotes[i].MinPrice
             var departdate = quotes[i].OutboundLeg.DepartureDate
             var departdateFix = departdate.slice(0, 10)
             var carrierIdGet = quotes[i].OutboundLeg.CarrierIds[0]
             var directflight = quotes[i].Direct
-            
+
             for (var i = 0; i < response.Places.length; i++) { //find the destination airport
                 var airportDes = response.Places[i].Name
 
             }
             for (var i = 0; i < response.Carriers.length; i++) { //find which airlines are returned
-                if (carrierIdGet === response.Carriers[i].CarrierId) {  //getting the correct carrier
+                if (carrierIdGet === response.Carriers[i].CarrierId) { //getting the correct carrier
                     var carrierpick = response.Carriers[i].Name
                     console.log(carrierpick)
                 }
@@ -205,7 +205,7 @@ $("#search-flights").on("click", function (event) {
 });
 
 $(document).ready(function () {
-    
+
 
     // Example options for Formatting
     var options = {
@@ -215,5 +215,14 @@ $(document).ready(function () {
                        $(IATA) </div>`
     };
     AirportInput("autocomplete-airport-1", options);
-});
 
+    $("#date-input").daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        minYear: 1901,
+        maxYear: parseInt(moment().format('YYYY'), 10)
+    }, function (start, end, label) {
+        var years = moment().diff(start, 'years');
+        alert("You are " + years + " years old!");
+    });
+});
