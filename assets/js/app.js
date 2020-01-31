@@ -122,6 +122,9 @@ function searchFlights(origin, dest, date, city) {
             tr2.append($("<td>").text(departdateFix));
             tr2.append($("<td>").text(directflight));
             tr2.append($("<td>").text(carrierpick));
+            tr2.append($("<td>").html($("<a>").attr("href", "https://www.skyscanner.com/transport/flights/"+origin+"/"+dest+"/"+date).text("Book Now").attr("target", "_blank"))
+                
+            )
             tbody2.append(tr2);
             $("#flight-table").append(tbody2);
         }
@@ -165,7 +168,8 @@ function displayCitiesWeather(id) {
     $("#cities").append(tableDiv);
 };
 
-$(".weather-btn").on("click", function () {
+$(".weather-btn").on("click", function (e) {
+    e.preventDefault();
     let id = $(this).attr("id");
     //console.log(id);
     displayCitiesWeather(id);
@@ -187,6 +191,7 @@ $("#search-flights").on("click", function (event) {
         $("<th>").text("Depature Date (YYYY/MM/DD)"), //change this to user input
         $("<th>").text("Direct Flight?"),
         $("<th>").text("Airline"),
+        $("<th>").text("")
     );
 
     heading2.append(headingTr2);
