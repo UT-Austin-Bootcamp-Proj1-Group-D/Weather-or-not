@@ -76,8 +76,8 @@ function searchFlights(origin, dest, date, city) {
 
     // search skyscanner api for cheapest flight on date
     // return the cheapest flight 
-    let url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + origin + "-sky/" + dest + "-sky/" + date + "?";
-
+    let url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + origin + "-sky/" + dest + "-sky/" + date;
+    console.log(url);
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -196,9 +196,13 @@ $("#search-flights").on("click", function (event) {
     let citiesSelected = [];
     $("input.city-select:checked").each(function () {
         let id = $(this).attr("data-index");
-        let origin = "AUS"
+        let origin = $("#autocomplete-airport-1").val().substr(0, 3);
+        
         let dest = cities.airportCode[id];
-        let date = "2020-02-10"
+        let date = $("#date-input").val();
+        date = moment(date, 'MM/DD/YYYY').format('YYYY-MM-DD');
+        console.log(origin, date);
+        //let date = "2020-02-10"
         let city = cities.cityName[id]
         searchFlights(origin, dest, date, city);
     });
