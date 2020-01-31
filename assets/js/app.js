@@ -18,8 +18,6 @@ function searchNOAA(weatherDescription) {
 
             var forecast = response.properties.periods;
 
-
-
             forecast.forEach(function (element) {
                 if (element.shortForecast.includes(weatherDescription)) {
 
@@ -58,13 +56,8 @@ function searchNOAA(weatherDescription) {
                 tbody.append(tr);
                 $("#weather-table").append(tbody);
             }
-
         });
-
-
-
     });
-
 }
 
 
@@ -117,13 +110,13 @@ function searchFlights(origin, dest, date, city) {
             var tr2 = $("<tr>");
             tr2.append($("<td>").text(""));
             tr2.append($("<td>").text(city));
-            tr2.append($("<td>").text(airportDes + " ("+dest+")"));
-            tr2.append($("<td>").text("$"+quote));
+            tr2.append($("<td>").text(airportDes + " (" + dest + ")"));
+            tr2.append($("<td>").text("$" + quote));
             tr2.append($("<td>").text(departdateFix));
             tr2.append($("<td>").text(directflight));
             tr2.append($("<td>").text(carrierpick));
-            tr2.append($("<td>").html($("<a>").attr("href", "https://www.skyscanner.com/transport/flights/"+origin+"/"+dest+"/"+date).text("Book Now").attr("target", "_blank"))
-                
+            tr2.append($("<td>").html($("<a>").attr("href", "https://www.skyscanner.com/transport/flights/" + origin + "/" + dest + "/" + date).text("Book Now").attr("target", "_blank"))
+
             )
             tbody2.append(tr2);
             $("#flight-table").append(tbody2);
@@ -203,7 +196,7 @@ $("#search-flights").on("click", function (event) {
     $("input.city-select:checked").each(function () {
         let id = $(this).attr("data-index");
         let origin = $("#autocomplete-airport-1").val().substr(0, 3);
-        
+
         let dest = cities.airportCode[id];
         let date = $("#date-input").val();
         date = moment(date, 'MM/DD/YYYY').format('YYYY-MM-DD');
@@ -232,6 +225,5 @@ $(document).ready(function () {
         minYear: 1901,
         maxYear: parseInt(moment().format('YYYY'), 10),
         maxDate: moment().add(7, 'days')
-    }, function (start, end, label) {
-    });
+    }, function (start, end, label) {});
 });
