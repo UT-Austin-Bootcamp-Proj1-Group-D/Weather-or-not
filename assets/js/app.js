@@ -71,7 +71,8 @@ function searchNOAA(weatherDescription) {
 // Function: searchFlights
 // use the Skyscanner API to search for the cheapest flights based on the cities selected by the user
 // Returns: array of objects, cities and the cheapest flight found
-function searchFlights(origin, dest, date) {
+function searchFlights(origin, dest, date, city) {
+
 
     // search skyscanner api for cheapest flight on date
     // return the cheapest flight 
@@ -84,16 +85,22 @@ function searchFlights(origin, dest, date) {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-            "x-rapidapi-key": "f655d74b8dmsh7124e9f74a7fa7ep1abd4ajsn3b73d28c941a"
+            "x-rapidapi-key": "f655d74b8dmsh7124e9f74a7fa7ep1abd4ajsn3b73d28c941a",
+            "Access-Control-Allow-Origin": "*"
         }
     };
 
     $.ajax(settings).done(function (response) {
         console.log(response);
-        for (var i = 0; i < response.Quotes.length; i++) {      //Get price and departure date and time
-            var quote = response.Quotes[i].MinPrice
-            var departdate = response.Quotes[i].OutboundLeg.DepartureDate
+        var quotes = response.Quotes
+        var places = response.Places
+        let carrier = response.Carriers
+
+        for (var i = 0; i < quotes.length; i++) {      //Get price and departure date and time
+            var quote = quotes[i].MinPrice
+            var departdate = quotes[i].OutboundLeg.DepartureDate
             var departdateFix = departdate.slice(0, 10)
+<<<<<<< HEAD
             var carrierIdGet = response.Quotes[i].OutboundLeg.CarrierIds[0]
             var directflight = response.Quotes[i].Direct
             console.log(carrierIdGet)
@@ -140,7 +147,33 @@ function searchFlights(origin, dest, date) {
         tr2.append($("<td>").text(carrierpick));
         tbody2.append(tr2);
         $("#flight-table").append(tbody2);
+=======
+            var carrierIdGet = quotes[i].OutboundLeg.CarrierIds[0]
+            var directflight = quotes[i].Direct
+            
+            for (var i = 0; i < response.Places.length; i++) { //find the destination airport
+                var airportDes = response.Places[i].Name
+>>>>>>> 4ebf413529a41a514f7945f1597816404d8d49ad
 
+            }
+            for (var i = 0; i < response.Carriers.length; i++) { //find which airlines are returned
+                if (carrierIdGet === response.Carriers[i].CarrierId) {  //getting the correct carrier
+                    var carrierpick = response.Carriers[i].Name
+                    console.log(carrierpick)
+                }
+            }
+            var tbody2 = $("<tbody>");
+            var tr2 = $("<tr>");
+            tr2.append($("<td>").text(""));
+            tr2.append($("<td>").text(city));
+            tr2.append($("<td>").text(airportDes));
+            tr2.append($("<td>").text(quote));
+            tr2.append($("<td>").text(departdateFix));
+            tr2.append($("<td>").text(directflight));
+            tr2.append($("<td>").text(carrierpick));
+            tbody2.append(tr2);
+            $("#flight-table").append(tbody2);
+        }
     });
 
 }
@@ -190,14 +223,33 @@ $(".weather-btn").on("click", function () {
 
 $("#search-flights").on("click", function (event) {
     event.preventDefault();
+    $("#flights").empty()
     console.log("blah");
+    var tableDiv2 = $("<div>").addClass("col-md-12");
+    var table2 = $("<table>").addClass("table").attr("id", "flight-table");
+    var heading2 = $("<thead>").addClass("thead-dark");
+    var headingTr2 = $("<tr>");
+    headingTr2.append($("<th>"),
+        $("<th>").text("Destination"),
+        $("<th>").text("Destination Airport"),
+        $("<th>").text(" Price ($)"),
+        $("<th>").text("Depature Date (YYYY/MM/DD)"), //change this to user input
+        $("<th>").text("Direct Flight?"),
+        $("<th>").text("Airline"),
+    );
+
+    heading2.append(headingTr2);
+    table2.append(heading2);
+    tableDiv2.append(table2);
+    $("#flights").append(tableDiv2);
     let citiesSelected = [];
     $("input.city-select:checked").each(function () {
         let id = $(this).attr("data-index");
         let origin = "AUS"
         let dest = cities.airportCode[id];
         let date = "2020-02-10"
-        searchFlights(origin, dest, date);
+        let city = cities.cityName[id]
+        searchFlights(origin, dest, date, city);
     });
 });
 
