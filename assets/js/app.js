@@ -173,6 +173,7 @@ $(".weather-btn").on("click", function (e) {
     let id = $(this).attr("id");
     //console.log(id);
     displayCitiesWeather(id);
+    $("#contact-class").removeAttr("hidden");
 });
 
 
