@@ -15,14 +15,14 @@ function searchNOAA(weatherDescription) {
             method: "GET"
         }).then(function (response) {
             var flag = false
-            
+
             var forecast = response.properties.periods;
 
 
 
             forecast.forEach(function (element) {
                 if (element.shortForecast.includes(weatherDescription)) {
-                    
+
                     if (matches.indexOf(index) === -1) {
                         matches.push(index);
                         //console.log(matches);
@@ -72,11 +72,12 @@ function searchNOAA(weatherDescription) {
 // use the Skyscanner API to search for the cheapest flights based on the cities selected by the user
 // Returns: array of objects, cities and the cheapest flight found
 function searchFlights(origin, dest, date, city) {
-    
+
+
     // search skyscanner api for cheapest flight on date
     // return the cheapest flight 
     let url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + origin + "-sky/" + dest + "-sky/" + date + "?";
-    
+
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -92,7 +93,7 @@ function searchFlights(origin, dest, date, city) {
         console.log(response);
         var quotes = response.Quotes
         var places = response.Places
-        let carrier= response.Carriers
+        let carrier = response.Carriers
 
         for (var i = 0; i < quotes.length; i++) {      //Get price and departure date and time
             var quote = quotes[i].MinPrice
@@ -100,34 +101,29 @@ function searchFlights(origin, dest, date, city) {
             var departdateFix = departdate.slice(0, 10)
             var carrierIdGet = quotes[i].OutboundLeg.CarrierIds[0]
             var directflight = quotes[i].Direct
-            console.log(carrierIdGet)
-        }
-        for (var i = 0; i < response.Places.length; i++) { //find the destination airport
-            var airportDes = response.Places[1].Name
             
-        }
-        for (var i = 0; i < response.Carriers.length; i++) { //find which airlines are returned
-            if (carrierIdGet === response.Carriers[i].CarrierId){  //getting the correct carrier
-            var carrierpick = response.Carriers[i].Name
-            console.log(carrierpick)}
-        }
-        
-       
-        
-        
+            for (var i = 0; i < response.Places.length; i++) { //find the destination airport
+                var airportDes = response.Places[i].Name
 
-        var tbody2 = $("<tbody>");
-        var tr2 = $("<tr>");
-        tr2.append($("<td>").text(""));
-        tr2.append($("<td>").text(city));
-        tr2.append($("<td>").text(airportDes));
-        tr2.append($("<td>").text(quote));
-        tr2.append($("<td>").text(departdateFix));
-        tr2.append($("<td>").text(directflight));
-        tr2.append($("<td>").text(carrierpick));
-        tbody2.append(tr2);
-        $("#flight-table").append(tbody2);
-
+            }
+            for (var i = 0; i < response.Carriers.length; i++) { //find which airlines are returned
+                if (carrierIdGet === response.Carriers[i].CarrierId) {  //getting the correct carrier
+                    var carrierpick = response.Carriers[i].Name
+                    console.log(carrierpick)
+                }
+            }
+            var tbody2 = $("<tbody>");
+            var tr2 = $("<tr>");
+            tr2.append($("<td>").text(""));
+            tr2.append($("<td>").text(city));
+            tr2.append($("<td>").text(airportDes));
+            tr2.append($("<td>").text(quote));
+            tr2.append($("<td>").text(departdateFix));
+            tr2.append($("<td>").text(directflight));
+            tr2.append($("<td>").text(carrierpick));
+            tbody2.append(tr2);
+            $("#flight-table").append(tbody2);
+        }
     });
 
 }
@@ -177,6 +173,7 @@ $(".weather-btn").on("click", function () {
 
 $("#search-flights").on("click", function (event) {
     event.preventDefault();
+    $("#flights").empty()
     console.log("blah");
     var tableDiv2 = $("<div>").addClass("col-md-12");
     var table2 = $("<table>").addClass("table").attr("id", "flight-table");
@@ -190,7 +187,7 @@ $("#search-flights").on("click", function (event) {
         $("<th>").text("Direct Flight?"),
         $("<th>").text("Airline"),
     );
-    
+
     heading2.append(headingTr2);
     table2.append(heading2);
     tableDiv2.append(table2);
