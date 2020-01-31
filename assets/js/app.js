@@ -71,24 +71,8 @@ function searchNOAA(weatherDescription) {
 // Function: searchFlights
 // use the Skyscanner API to search for the cheapest flights based on the cities selected by the user
 // Returns: array of objects, cities and the cheapest flight found
-function searchFlights(origin, dest, date) {
-    var tableDiv2 = $("<div>").addClass("col-md-8");
-    var table2 = $("<table>").addClass("table").attr("id", "flight-table");
-    var heading2 = $("<thead>").addClass("thead-dark");
-    var headingTr2 = $("<tr>");
-    headingTr2.append($("<th>"),
-        $("<th>").text("Destination"),
-        $("<th>").text("Destination Airport"),
-        $("<th>").text(" Price ($)"),
-        $("<th>").text("Depature Date (YYYY/MM/DD)"), //change this to user input
-        $("<th>").text("Direct Flight?"),
-        $("<th>").text("Airline"),
-    );
+function searchFlights(origin, dest, date, city) {
     
-    heading2.append(headingTr2);
-    table2.append(heading2);
-    tableDiv2.append(table2);
-    $("#flights").append(tableDiv2);
     // search skyscanner api for cheapest flight on date
     // return the cheapest flight 
     let url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + origin + "-sky/" + dest + "-sky/" + date + "?";
@@ -135,7 +119,7 @@ function searchFlights(origin, dest, date) {
         var tbody2 = $("<tbody>");
         var tr2 = $("<tr>");
         tr2.append($("<td>").text(""));
-        tr2.append($("<td>").text("Destination"));
+        tr2.append($("<td>").text(city));
         tr2.append($("<td>").text(airportDes));
         tr2.append($("<td>").text(quote));
         tr2.append($("<td>").text(departdateFix));
@@ -194,13 +178,31 @@ $(".weather-btn").on("click", function () {
 $("#search-flights").on("click", function (event) {
     event.preventDefault();
     console.log("blah");
+    var tableDiv2 = $("<div>").addClass("col-md-12");
+    var table2 = $("<table>").addClass("table").attr("id", "flight-table");
+    var heading2 = $("<thead>").addClass("thead-dark");
+    var headingTr2 = $("<tr>");
+    headingTr2.append($("<th>"),
+        $("<th>").text("Destination"),
+        $("<th>").text("Destination Airport"),
+        $("<th>").text(" Price ($)"),
+        $("<th>").text("Depature Date (YYYY/MM/DD)"), //change this to user input
+        $("<th>").text("Direct Flight?"),
+        $("<th>").text("Airline"),
+    );
+    
+    heading2.append(headingTr2);
+    table2.append(heading2);
+    tableDiv2.append(table2);
+    $("#flights").append(tableDiv2);
     let citiesSelected = [];
     $("input.city-select:checked").each(function () {
         let id = $(this).attr("data-index");
         let origin = "AUS"
         let dest = cities.airportCode[id];
         let date = "2020-02-10"
-        searchFlights(origin, dest, date);
+        let city = cities.cityName[id]
+        searchFlights(origin, dest, date, city);
     });
 });
 
