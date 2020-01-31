@@ -84,7 +84,8 @@ function searchFlights(origin, dest, date, city) {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-            "x-rapidapi-key": "f655d74b8dmsh7124e9f74a7fa7ep1abd4ajsn3b73d28c941a"
+            "x-rapidapi-key": "f655d74b8dmsh7124e9f74a7fa7ep1abd4ajsn3b73d28c941a",
+            "Access-Control-Allow-Origin": "*"
         }
     };
 
