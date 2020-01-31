@@ -100,60 +100,11 @@ function searchFlights(origin, dest, date, city) {
             var quote = quotes[i].MinPrice
             var departdate = quotes[i].OutboundLeg.DepartureDate
             var departdateFix = departdate.slice(0, 10)
-<<<<<<< HEAD
-            var carrierIdGet = response.Quotes[i].OutboundLeg.CarrierIds[0]
-            var directflight = response.Quotes[i].Direct
-            console.log(carrierIdGet)
-        }
-        for (var i = 0; i < response.Places.length; i++) { //find the destination airport
-            var airportDes = response.Places[1].Name
-
-        }
-        for (var i = 0; i < response.Carriers.length; i++) { //find which airlines are returned
-            if (carrierIdGet === response.Carriers[i].CarrierId) {
-                var carrierpick = response.Carriers[i].Name
-                console.log(carrierpick)
-            }
-        }
-
-
-        $("#flights").html("");
-
-        var tableDiv2 = $("<div>").addClass("col-md-8");
-        var table2 = $("<table>").addClass("table").attr("id", "flight-table");
-        var heading2 = $("<thead>").addClass("thead-dark");
-        var headingTr2 = $("<tr>");
-        headingTr2.append($("<th>"),
-            $("<th>").text("Destination"),
-            $("<th>").text("Destination Airport"),
-            $("<th>").text(" Price ($)"),
-            $("<th>").text("Depature Date (YYYY/MM/DD)"), //change this to user input
-            $("<th>").text("Direct Flight?"),
-            $("<th>").text("Airline"),
-        );
-        heading2.append(headingTr2);
-        table2.append(heading2);
-        tableDiv2.append(table2);
-        $("#flights").append(tableDiv2);
-
-        var tbody2 = $("<tbody>");
-        var tr2 = $("<tr>");
-        tr2.append($("<td>").text(""));
-        tr2.append($("<td>").text("Destination"));
-        tr2.append($("<td>").text(airportDes));
-        tr2.append($("<td>").text(quote));
-        tr2.append($("<td>").text(departdateFix));
-        tr2.append($("<td>").text(directflight));
-        tr2.append($("<td>").text(carrierpick));
-        tbody2.append(tr2);
-        $("#flight-table").append(tbody2);
-=======
             var carrierIdGet = quotes[i].OutboundLeg.CarrierIds[0]
             var directflight = quotes[i].Direct
             
             for (var i = 0; i < response.Places.length; i++) { //find the destination airport
                 var airportDes = response.Places[i].Name
->>>>>>> 4ebf413529a41a514f7945f1597816404d8d49ad
 
             }
             for (var i = 0; i < response.Carriers.length; i++) { //find which airlines are returned
@@ -254,15 +205,15 @@ $("#search-flights").on("click", function (event) {
 });
 
 $(document).ready(function () {
+    
 
+    // Example options for Formatting
+    var options = {
+        formatting: `<div class="$(unique-result)"
+                         single-result" 
+                         data-index="$(i)"> 
+                       $(IATA) </div>`
+    };
+    AirportInput("autocomplete-airport-1", options);
 });
 
-AirportInput("autocomplete-airport-1");
-
-// Example options for Formatting
-var options = {
-    formatting: `<div class="$(unique-result)"
-                     single-result" 
-                     data-index="$(i)"> 
-                   $(IATA) </div>`
-};
