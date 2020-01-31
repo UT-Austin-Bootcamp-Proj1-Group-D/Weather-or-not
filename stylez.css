@@ -46,3 +46,68 @@
   .col-md-12.b {
     padding: 0px;
   }
+
+
+
+
+/* lots of css styles come with the airport autocomplete api */
+  .autocomplete-result {
+    cursor: pointer;
+     }
+    .autocomplete-result:hover {
+      background-color: #f2f2fc; }
+  
+  .autocomplete-results {
+    position: inherit;
+    background-color: #fff;
+    z-index: 100;
+    
+    box-shadow: -2px 3px 18px 0px rgba(0, 0, 0, 0.75); }
+  
+
+  * {
+    box-sizing: border-box; }
+  
+  .inp {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    max-width: 280px; }
+  
+  .label {
+    position: absolute;
+    top: 16px;
+    left: 0;
+    font-size: 16px;
+    color: #9098A9;
+    font-weight: 500;
+    transform-origin: 0 0;
+    transition: all .2s ease; }
+  
+  .border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: #0077FF;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    transition: all .15s ease; }
+  
+
+    input:not(:placeholder-shown) + span {
+      color: #0051ff;
+      transform: translateY(-26px) scale(0.75); }
+    input:focus {
+      background: none;
+      outline: none; }
+      input:focus + span {
+        transform: translateY(-26px) scale(0.75); }
+        input:focus + span + .border {
+          transform: scaleX(1); }
+  
+  
+  
+
+  
