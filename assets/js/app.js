@@ -150,13 +150,13 @@ function displayCitiesWeather(id) {
     var headingTr = $("<tr>");
     headingTr.append($("<th>").text("Select"),
         $("<th>").text("City"),
-        $("<th>").text("Day 1"),
-        $("<th>").text("Day 2"),
-        $("<th>").text("Day 3"),
-        $("<th>").text("Day 4"),
-        $("<th>").text("Day 5"),
-        $("<th>").text("Day 6"),
-        $("<th>").text("Day 7"));
+        $("<th>").text("Day 1").addClass("text-center"),
+        $("<th>").text("Day 2").addClass("text-center"),
+        $("<th>").text("Day 3").addClass("text-center"),
+        $("<th>").text("Day 4").addClass("text-center"),
+        $("<th>").text("Day 5").addClass("text-center"),
+        $("<th>").text("Day 6").addClass("text-center"),
+        $("<th>").text("Day 7").addClass("text-center"));
     heading.append(headingTr); // add heading to the table variable
 
     // Search the NOAA API 
