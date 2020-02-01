@@ -2,11 +2,10 @@
 // Holds the cities that match the weather
 var matches = [];
 
-// Function: search NOAA
-// utilizes the NOAA API to search through the list of cities and compares their upcoming weather to what the user selected
+// Function: search NWS
+// utilizes the NWS API to search through the list of cities and compares their upcoming weather to what the user selected
 // Returns: array of cities that matches the weather description
-function searchNOAA(weatherDescription) {
-
+function searchNWS(weatherDescription) {
     // set matches to a blank array
     matches = [];
 
@@ -20,39 +19,36 @@ function searchNOAA(weatherDescription) {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            
+
             var flag = false; // flag to set true if there is a weather match
             var forecast = response.properties.periods; // get the next 7 day forecast out of the response
 
             // loop through each forecast period 
             forecast.forEach(function (element) {
-                if (element.shortForecast.includes(weatherDescription)) {
-
+                if (element.shortForecast.includes(weatherDescription)) { // if the weather type is in the short description, it's a match
                     if (matches.indexOf(index) === -1) {
                         matches.push(index);
-                        //console.log(matches);
                         flag = true;
-
                     }
                 }
             });
-            if (flag) {
+            if (flag) { // if there's a match, add the weather to the city table
                 let startIndex = 0;
-                var today = new Date();
+                var today = new Date(); // get today's date
 
+                // forcasts are issued twice a day, make sure you're pulling the day forecast and not the night one
                 if (today.getHours() >= 18) {
                     startIndex++;
                 }
                 var tbody = $("<tbody>");
                 var tr = $("<tr>");
 
+                // add the daily weather
                 tr.append($("<td>").html($("<input>")
                     .attr("type", "checkbox")
                     .attr("data-index", index)
                     .addClass("city-select")));
-
                 tr.append($("<td>").text(cities.cityName[index]));
-
                 tr.append($("<td>").text(forecast[startIndex].shortForecast + " " + forecast[startIndex].temperature + "°F"));
                 tr.append($("<td>").text(forecast[startIndex + 2].shortForecast + " " + forecast[startIndex + 2].temperature + "°F"));
                 tr.append($("<td>").text(forecast[startIndex + 4].shortForecast + " " + forecast[startIndex + 4].temperature + "°F"));
@@ -61,6 +57,8 @@ function searchNOAA(weatherDescription) {
                 tr.append($("<td>").text(forecast[startIndex + 10].shortForecast + " " + forecast[startIndex + 10].temperature + "°F"));
                 tr.append($("<td>").text(forecast[startIndex + 12].shortForecast + " " + forecast[startIndex + 12].temperature + "°F"));
                 tbody.append(tr);
+
+                // add the city and weather to the table
                 $("#weather-table").append(tbody);
             }
         });
@@ -72,12 +70,9 @@ function searchNOAA(weatherDescription) {
 // use the Skyscanner API to search for the cheapest flights based on the cities selected by the user
 // Returns: array of objects, cities and the cheapest flight found
 function searchFlights(origin, dest, date, city) {
-
-
-    // search skyscanner api for cheapest flight on date
-    // return the cheapest flight 
+    // search Skyscanner Cache API for cheapest flight on date entered
     let url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/" + origin + "-sky/" + dest + "-sky/" + date;
-    console.log(url);
+    //console.log(url);
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -90,9 +85,11 @@ function searchFlights(origin, dest, date, city) {
         }
     };
 
+    // Make the API call
     $.ajax(settings).done(function (response) {
         console.log(response);
-        
+
+        // split out the variables from the response (for more better readability)
         let quotes = response.Quotes;
         let places = response.Places;
         let carriers = response.Carriers;
@@ -103,17 +100,22 @@ function searchFlights(origin, dest, date, city) {
             var departdateFix = departdate.slice(0, 10)
             var carrierIdGet = quotes[i].OutboundLeg.CarrierIds[0]
             var directflight = quotes[i].Direct
+            var airportId = quotes[i].OutboundLeg.DestinationId
 
             for (var i = 0; i < places.length; i++) { //find the destination airport
-                var airportDes = places[i].Name
-
+                if (airportId === places[i].PlaceId) { //getting the correct carrier
+                    var airportDes = places[i].Name;
+                    console.log(airportDes);
+                }
             }
             for (var i = 0; i < carriers.length; i++) { //find which airlines are returned
                 if (carrierIdGet === carriers[i].CarrierId) { //getting the correct carrier
-                    var carrierpick = carriers[i].Name
-                    console.log(carrierpick)
+                    var carrierpick = carriers[i].Name;
+                    console.log(carrierpick);
                 }
             }
+
+            // add the quote to do the table 
             var tbody2 = $("<tbody>");
             var tr2 = $("<tr>");
             tr2.append($("<td>").text(""));
@@ -123,20 +125,11 @@ function searchFlights(origin, dest, date, city) {
             tr2.append($("<td>").text(departdateFix));
             tr2.append($("<td>").text(directflight));
             tr2.append($("<td>").text(carrierpick));
-            tr2.append($("<td>").html($("<a>").attr("href", "https://www.skyscanner.com/transport/flights/" + origin + "/" + dest + "/" + date).text("Book Now").attr("target", "_blank"))
-
-            )
+            tr2.append($("<td>").html($("<a>").attr("href", "https://www.skyscanner.com/transport/flights/" + origin + "/" + dest + "/" + date).text("Book Now").attr("target", "_blank")));
             tbody2.append(tr2);
             $("#flight-table").append(tbody2);
         }
     });
-
-}
-
-// Function displayLowestPrices
-// displays the lowest price flights to the page
-function displayLowestPrices() {
-    $("#cities").html("");
 }
 
 // Function: displayCitiesWeather
@@ -160,8 +153,8 @@ function displayCitiesWeather(id) {
         $("<th>").text("Day 7"));
     heading.append(headingTr);
 
-
-    searchNOAA(id);
+    // Search the NOAA API 
+    searchNWS(id);
 
     table.append(heading);
     tableDiv.append(table);
@@ -177,50 +170,51 @@ $(".weather-btn").on("click", function (e) {
     $("#contact-class").removeAttr("hidden");
 });
 
-
+// Search Flights onclick
 $("#search-flights").on("click", function (event) {
+    // check the validity of the form - if it's valid go ahead and continue
     if ($("form")[0].checkValidity()) {
         event.preventDefault();
-    $("#flights").empty()
-    console.log("blah");
-    var tableDiv2 = $("<div>").addClass("col-md-12");
-    var table2 = $("<table>").addClass("table").attr("id", "flight-table");
-    var heading2 = $("<thead>").addClass("thead-dark");
-    var headingTr2 = $("<tr>");
-    headingTr2.append($("<th>"),
-        $("<th>").text("Destination"),
-        $("<th>").text("Destination Airport"),
-        $("<th>").text("Price"),
-        $("<th>").text("Depature Date (YYYY-MM-DD)"), //change this to user input
-        $("<th>").text("Direct Flight?"),
-        $("<th>").text("Airline"),
-        $("<th>").text("")
-    );
+        $("#flights").empty()
+        console.log("blah");
+        var tableDiv2 = $("<div>").addClass("col-md-12");
+        var table2 = $("<table>").addClass("table").attr("id", "flight-table");
+        var heading2 = $("<thead>").addClass("thead-dark");
+        var headingTr2 = $("<tr>");
+        headingTr2.append($("<th>"),
+            $("<th>").text("Destination"),
+            $("<th>").text("Destination Airport"),
+            $("<th>").text("Price"),
+            $("<th>").text("Depature Date (YYYY-MM-DD)"), //change this to user input
+            $("<th>").text("Direct Flight?"),
+            $("<th>").text("Airline"),
+            $("<th>").text("")
+        );
 
-    heading2.append(headingTr2);
-    table2.append(heading2);
-    tableDiv2.append(table2);
-    $("#flights").append(tableDiv2);
-    let citiesSelected = [];
-    $("input.city-select:checked").each(function () {
-        let id = $(this).attr("data-index");
-        let origin = $("#autocomplete-airport-1").val().substr(0, 3);
+        heading2.append(headingTr2);
+        table2.append(heading2);
+        tableDiv2.append(table2);
+        $("#flights").append(tableDiv2);
+        let citiesSelected = [];
+        $("input.city-select:checked").each(function () {
+            let id = $(this).attr("data-index");
+            let origin = $("#autocomplete-airport-1").val().substr(0, 3);
 
-        let dest = cities.airportCode[id];
-        let date = $("#date-input").val();
-        date = moment(date, 'MM/DD/YYYY').format('YYYY-MM-DD');
-        console.log(origin, date);
-        //let date = "2020-02-10"
-        let city = cities.cityName[id]
-        searchFlights(origin, dest, date, city);
-    });
-} else {
+            let dest = cities.airportCode[id];
+            let date = $("#date-input").val();
+            date = moment(date, 'MM/DD/YYYY').format('YYYY-MM-DD');
+            console.log(origin, date);
+            //let date = "2020-02-10"
+            let city = cities.cityName[id]
+            searchFlights(origin, dest, date, city);
+        });
+    } else {
         console.log("form not valid");
-      }
+    }
 });
 
 $(document).ready(function () {
-    // Example options for Formatting
+    // Set up the airport autocomplete
     var options = {
         formatting: `<div class="$(unique-result)"
                          single-result" 
@@ -229,6 +223,7 @@ $(document).ready(function () {
     };
     AirportInput("autocomplete-airport-1", options);
 
+    //  Set up the daterangepicker
     $("#date-input").daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
