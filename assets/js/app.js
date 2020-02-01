@@ -1,23 +1,30 @@
+// Variable: matches
+// Holds the cities that match the weather
 var matches = [];
+
 // Function: search NOAA
 // utilizes the NOAA API to search through the list of cities and compares their upcoming weather to what the user selected
 // Returns: array of cities that matches the weather description
-
 function searchNOAA(weatherDescription) {
 
+    // set matches to a blank array
     matches = [];
 
+    // for each city in the city array, search the weather and check to see if there's amatch in the next 7 days
     cities.airportCode.forEach(function (element, index) {
-
+        // set up the query URL
         var queryURL = "https://api.weather.gov/gridpoints/" + cities.cwa[index] + "/" + cities.gridX[index] + "," + cities.gridY[index] + "/forecast";
+
+        // AJAX call to the weather.gov API
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            var flag = false
+            
+            var flag = false; // flag to set true if there is a weather match
+            var forecast = response.properties.periods; // get the next 7 day forecast out of the response
 
-            var forecast = response.properties.periods;
-
+            // loop through each forecast period 
             forecast.forEach(function (element) {
                 if (element.shortForecast.includes(weatherDescription)) {
 
@@ -85,9 +92,10 @@ function searchFlights(origin, dest, date, city) {
 
     $.ajax(settings).done(function (response) {
         console.log(response);
-        var quotes = response.Quotes
-        var places = response.Places
-        let carrier = response.Carriers
+        
+        let quotes = response.Quotes;
+        let places = response.Places;
+        let carriers = response.Carriers;
 
         for (var i = 0; i < quotes.length; i++) { //Get price and departure date and time
             var quote = quotes[i].MinPrice
@@ -96,13 +104,13 @@ function searchFlights(origin, dest, date, city) {
             var carrierIdGet = quotes[i].OutboundLeg.CarrierIds[0]
             var directflight = quotes[i].Direct
 
-            for (var i = 0; i < response.Places.length; i++) { //find the destination airport
-                var airportDes = response.Places[i].Name
+            for (var i = 0; i < places.length; i++) { //find the destination airport
+                var airportDes = places[i].Name
 
             }
-            for (var i = 0; i < response.Carriers.length; i++) { //find which airlines are returned
-                if (carrierIdGet === response.Carriers[i].CarrierId) { //getting the correct carrier
-                    var carrierpick = response.Carriers[i].Name
+            for (var i = 0; i < carriers.length; i++) { //find which airlines are returned
+                if (carrierIdGet === carriers[i].CarrierId) { //getting the correct carrier
+                    var carrierpick = carriers[i].Name
                     console.log(carrierpick)
                 }
             }
@@ -171,7 +179,8 @@ $(".weather-btn").on("click", function (e) {
 
 
 $("#search-flights").on("click", function (event) {
-    event.preventDefault();
+    if ($("form")[0].checkValidity()) {
+        event.preventDefault();
     $("#flights").empty()
     console.log("blah");
     var tableDiv2 = $("<div>").addClass("col-md-12");
@@ -205,11 +214,12 @@ $("#search-flights").on("click", function (event) {
         let city = cities.cityName[id]
         searchFlights(origin, dest, date, city);
     });
+} else {
+        console.log("form not valid");
+      }
 });
 
 $(document).ready(function () {
-
-
     // Example options for Formatting
     var options = {
         formatting: `<div class="$(unique-result)"
