@@ -95,6 +95,7 @@ function searchFlights(origin, dest, date, city) {
         let carriers = response.Carriers;
 
         for (let i = 0; i < quotes.length; i++) { //Get price and departure date and time
+            // set up our variables from the query response
             var quote = quotes[i].MinPrice
             var departdate = quotes[i].OutboundLeg.DepartureDate
             var departdateFix = departdate.slice(0, 10)
@@ -140,9 +141,9 @@ function searchFlights(origin, dest, date, city) {
 // Function: displayCitiesWeather
 // displays the cities and their weather to the page
 function displayCitiesWeather(id) {
-    $("#cities").html("");
-    //console.log(id);
+    $("#cities").html(""); // clear out the cities div
 
+    // set up the table heading variables
     var tableDiv = $("<div>").addClass("col-md-12");
     var table = $("<table>").addClass("table").attr("id", "weather-table");
     var heading = $("<thead>").addClass("thead-dark");
@@ -156,64 +157,65 @@ function displayCitiesWeather(id) {
         $("<th>").text("Day 5"),
         $("<th>").text("Day 6"),
         $("<th>").text("Day 7"));
-    heading.append(headingTr);
+    heading.append(headingTr); // add heading to the table variable
 
     // Search the NOAA API 
     searchNWS(id);
 
     table.append(heading);
     tableDiv.append(table);
-    //tableDiv.append($("<button>").attr("id", "search-btn").text("Search Flights"));
-    $("#cities").append(tableDiv);
+    $("#cities").append(tableDiv); // add the cities to the page
 };
 
+// Function: weather-btn on click
+// searches for the weather type when one of the 4 weather buttons is pressed
 $(".weather-btn").on("click", function (e) {
-    e.preventDefault();
+    e.preventDefault(); // don't reload the page
     let id = $(this).attr("id");
     //console.log(id);
-    displayCitiesWeather(id);
-    $("#contact-class").removeAttr("hidden");
+    displayCitiesWeather(id); // display the weather in the city
+    $("#contact-class").removeAttr("hidden"); // show the date and airport picker
 });
 
-// Search Flights onclick
-$("#search-flights").on("click", function (event) {
+// function: Search Flights onclick
+$("#search-flights").on("click", function (e) {
     // check the validity of the form - if it's valid go ahead and continue
     if ($("form")[0].checkValidity()) {
-        event.preventDefault();
-        $("#flights").empty()
-        console.log("blah");
+        e.preventDefault(); // don't reload the page
+        $("#flights").empty(); // clear out the flights table
+
+        // set up the heading
         var tableDiv2 = $("<div>").addClass("col-md-12");
         var table2 = $("<table>").addClass("table").attr("id", "flight-table");
         var heading2 = $("<thead>").addClass("thead-dark");
         var headingTr2 = $("<tr>");
         headingTr2.append($("<th>"),
-            $("<th>").text("Destination"),
+            $("<th>").text("Destination City"),
             $("<th>").text("Destination Airport"),
             $("<th>").text("Price"),
-            $("<th>").text("Depature Date (YYYY-MM-DD)"), //change this to user input
+            $("<th>").text("Depature Date (YYYY-MM-DD)"), 
             $("<th>").text("Direct Flight?"),
             $("<th>").text("Airline"),
             $("<th>").text("")
         );
-
+        // add hedaing to the table variable
         heading2.append(headingTr2);
         table2.append(heading2);
         tableDiv2.append(table2);
+        // add heading to page
         $("#flights").append(tableDiv2);
-        let citiesSelected = [];
+
+        // for each city that was selected, search for the lowest flight prices
         $("input.city-select:checked").each(function () {
             let id = $(this).attr("data-index");
             let origin = $("#autocomplete-airport-1").val().substr(0, 3);
-
             let dest = cities.airportCode[id];
             let date = $("#date-input").val();
             date = moment(date, 'MM/DD/YYYY').format('YYYY-MM-DD');
-            console.log(origin, date);
-            //let date = "2020-02-10"
-            let city = cities.cityName[id]
+            let city = cities.cityName[id];
             searchFlights(origin, dest, date, city);
         });
-    } else {
+    } else { 
         console.log("form not valid");
     }
 });
