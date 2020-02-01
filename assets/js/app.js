@@ -94,7 +94,7 @@ function searchFlights(origin, dest, date, city) {
         let places = response.Places;
         let carriers = response.Carriers;
 
-        for (var i = 0; i < quotes.length; i++) { //Get price and departure date and time
+        for (let i = 0; i < quotes.length; i++) { //Get price and departure date and time
             var quote = quotes[i].MinPrice
             var departdate = quotes[i].OutboundLeg.DepartureDate
             var departdateFix = departdate.slice(0, 10)
@@ -102,15 +102,15 @@ function searchFlights(origin, dest, date, city) {
             var directflight = quotes[i].Direct
             var airportId = quotes[i].OutboundLeg.DestinationId
 
-            for (var i = 0; i < places.length; i++) { //find the destination airport
-                if (airportId === places[i].PlaceId) { //getting the correct carrier
-                    var airportDes = places[i].Name;
+            for (let x = 0; x < places.length; x++) { //find the destination airport
+                if (airportId === places[x].PlaceId) { //getting the correct carrier
+                    var airportDes = places[x].Name;
                     console.log(airportDes);
                 }
             }
-            for (var i = 0; i < carriers.length; i++) { //find which airlines are returned
-                if (carrierIdGet === carriers[i].CarrierId) { //getting the correct carrier
-                    var carrierpick = carriers[i].Name;
+            for (let y = 0; y < carriers.length; y++) { //find which airlines are returned
+                if (carrierIdGet === carriers[y].CarrierId) { //getting the correct carrier
+                    var carrierpick = carriers[y].Name;
                     console.log(carrierpick);
                 }
             }
@@ -123,7 +123,12 @@ function searchFlights(origin, dest, date, city) {
             tr2.append($("<td>").text(airportDes + " (" + dest + ")"));
             tr2.append($("<td>").text("$" + quote));
             tr2.append($("<td>").text(departdateFix));
-            tr2.append($("<td>").text(directflight));
+            // display a check mark if it's a direct flight
+            if(directflight){
+                tr2.append($("<td>").html("&#x2714"));
+            } else {
+                tr2.append($("<td>").html("&#x2717"));
+            }  
             tr2.append($("<td>").text(carrierpick));
             tr2.append($("<td>").html($("<a>").attr("href", "https://www.skyscanner.com/transport/flights/" + origin + "/" + dest + "/" + date).text("Book Now").attr("target", "_blank")));
             tbody2.append(tr2);
