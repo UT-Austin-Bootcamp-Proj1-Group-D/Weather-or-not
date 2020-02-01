@@ -49,13 +49,13 @@ function searchNWS(weatherDescription) {
                     .attr("data-index", index)
                     .addClass("city-select")));
                 tr.append($("<td>").text(cities.cityName[index]));
-                tr.append($("<td>").html(forecast[startIndex].shortForecast + "<br> " + forecast[startIndex].temperature + "°F").addClass("text-center"));
-                tr.append($("<td>").html(forecast[startIndex + 2].shortForecast + "<br> " + forecast[startIndex + 2].temperature + "°F").addClass("text-center"));
-                tr.append($("<td>").html(forecast[startIndex + 4].shortForecast + "<br> " + forecast[startIndex + 4].temperature + "°F").addClass("text-center"));
-                tr.append($("<td>").html(forecast[startIndex + 6].shortForecast + "<br> " + forecast[startIndex + 6].temperature + "°F").addClass("text-center"));
-                tr.append($("<td>").html(forecast[startIndex + 8].shortForecast + "<br> " + forecast[startIndex + 8].temperature + "°F").addClass("text-center"));
-                tr.append($("<td>").html(forecast[startIndex + 10].shortForecast + "<br> " + forecast[startIndex + 10].temperature + "°F").addClass("text-center"));
-                tr.append($("<td>").html(forecast[startIndex + 12].shortForecast + "<br> " + forecast[startIndex + 12].temperature + "°F").addClass("text-center"));
+                tr.append($("<td>").html(forecast[startIndex].temperature + "°F" + "<br>" + forecast[startIndex].shortForecast).addClass("text-center"));
+                tr.append($("<td>").html(forecast[startIndex + 2].temperature + "°F" + "<br>" + forecast[startIndex + 2].shortForecast).addClass("text-center"));
+                tr.append($("<td>").html(forecast[startIndex + 4].temperature + "°F" + "<br>" + forecast[startIndex + 4].shortForecast).addClass("text-center"));
+                tr.append($("<td>").html(forecast[startIndex + 6].temperature + "°F" + "<br>" + forecast[startIndex + 6].shortForecast).addClass("text-center"));
+                tr.append($("<td>").html(forecast[startIndex + 8].temperature + "°F" + "<br>" + forecast[startIndex + 8].shortForecast).addClass("text-center"));
+                tr.append($("<td>").html(forecast[startIndex + 10].temperature + "°F" + "<br>" + forecast[startIndex + 10].shortForecast).addClass("text-center"));
+                tr.append($("<td>").html(forecast[startIndex + 12].temperature + "°F" + "<br>" + forecast[startIndex + 12].shortForecast).addClass("text-center"));
                 tbody.append(tr);
 
                 // add the city and weather to the table
